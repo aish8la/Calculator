@@ -1,0 +1,23 @@
+.cal-body {
+    border: 2px solid black;
+    display: flex;
+    height: 600px;
+    width: 480px;
+    flex-direction: column;
+}
+
+.display-section {
+    height: 100px;
+    width: 480px;
+    border: 2px solid black;
+}
+
+.button-section {
+    width: 480px;
+    height: 500px;
+    border: 2px solid black;
+}
+
+.button {
+    
+}
