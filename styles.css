@@ -18,6 +18,16 @@
     border: 2px solid black;
 }
 
+.button-ctn {
+    display: flex;
+}
+
 .button {
-    
+    min-width: 120px;
+    min-height: 100px;
+}
+
+#zero-btn,
+#allClear-btn {
+    flex-grow: 1;
 }
