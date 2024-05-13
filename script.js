@@ -2,6 +2,7 @@ let display = '';
 let operandA = '';
 let operandB = '';
 let operationCount = 0;
+let currentOperation = '';
 const displayBox = document.querySelector('#display');
 const operations = {
     add: (a, b) => a + b,
@@ -13,9 +14,6 @@ const operations = {
 function updateDisplay() {
     displayBox.textContent = display;
 }
-
-
-const buttons = document.querySelectorAll('.button');
 
 const buttonContainer = document.querySelector('.button-section');
 
@@ -31,23 +29,37 @@ buttonContainer.addEventListener('click', event => {
     const button = event.target;
     if (button.getAttribute('id') === 'allClear-btn') {
         display = '';
+        operationCount = 0;
+        currentOperation = '';
+        operandA = '';
+        operandB = '';
         updateDisplay();
     }
 });
-
-
-
-
 
 buttonContainer.addEventListener('click', event => {
     const button = event.target;
     if (button.getAttribute('id') === 'equals-btn') {
-        operate(operandA, operandB, )
+        operandB = display;
+        operate(operandA, operandB, currentOperation);
         updateDisplay();
     }
 });
 
 
-function operate(valueA, valueB, operation) {
-    display = operation(valueA, valueB);
+function operate(a, b, callback) {
+    display = callback(a, b);
 }
+
+buttonContainer.addEventListener('click', event => {
+    const button = event.target;
+    if (button.classList.contains('operator') && operationCount < 1) {
+        const buttonValue = button.value;
+        currentOperation = operations[buttonValue];
+        console.log(currentOperation);
+        operationCount++;
+        operandA = display;
+        display = '';
+        updateDisplay();
+    }
+});
