@@ -4,6 +4,10 @@ let operandB = '';
 let operationCount = 0;
 const displayBox = document.querySelector('#display');
 
+function updateDisplay() {
+    displayBox.textContent = display;
+}
+
 const add = (a, b) => {
     return a + b;
 }
@@ -28,7 +32,14 @@ buttonContainer.addEventListener('click', event => {
     const button = event.target;
     if (button.classList.contains('number')) {
         display += '' + button.value;
-        displayBox.textContent = display;
-        console.log(display);
+        updateDisplay();
+    }
+});
+
+buttonContainer.addEventListener('click', event => {
+    const button = event.target;
+    if (button.getAttribute('id') === 'allClear-btn') {
+        display = '';
+        updateDisplay();
     }
 });
