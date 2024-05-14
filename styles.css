@@ -7,7 +7,7 @@
 }
 
 .display-section {
-    height: 100px;
+    height: 70px;
     width: 480px;
     border: 2px solid black;
 }
@@ -30,4 +30,10 @@
 #zero-btn,
 #allClear-btn {
     flex-grow: 1;
+}
+
+.history {
+    width: 480px;
+    border: 2px solid black;
+    height: 30px;
 }
