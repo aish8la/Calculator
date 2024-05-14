@@ -55,7 +55,7 @@ buttonContainer.addEventListener('click', event => {
             display = operate(operandA, display);
             updateHistory();
             updateDisplay();
-            currentOperation = '';
+            display = '';
         }
     }
 });
@@ -63,7 +63,10 @@ buttonContainer.addEventListener('click', event => {
 
 function operate(a, b) {
     history += ' ' + display;
-    return currentOperation(Number(a), Number(b));
+    const calValue = currentOperation(Number(a), Number(b));
+    currentOperation = '';
+    operandA = calValue;
+    return calValue;
 }
 
 buttonContainer.addEventListener('click', event => {
@@ -72,7 +75,7 @@ buttonContainer.addEventListener('click', event => {
         if (operationCount < 1) {
             operandAssignment(button);
         } else {
-
+            goToNextOperation(button);
         }
     }
 });
@@ -85,4 +88,18 @@ function operandAssignment(target) {
     display = '';
     updateDisplay();
     updateHistory();
+}
+
+function goToNextOperation(target) {
+    if (currentOperation === '') {
+        currentOperation = operations[target.value];
+        history += ' ' + operationSign[target.value] + ' ' + display;
+    } else {
+        history += ' ' + display;
+        display = operate(operandA, display);
+        currentOperation = operations[target.value];
+    }
+    updateDisplay();
+    updateHistory();
+    display = '';
 }
