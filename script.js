@@ -100,3 +100,13 @@ buttonContainer.addEventListener('click', event => {
         updateDisplay();
     }
 });
+
+buttonContainer.addEventListener('click', event => {
+    const button = event.target;
+    if (button.getAttribute('id') === 'decimal-btn') {
+        if(!display.includes('.')) {
+            display += '.';
+            updateDisplay();
+        }
+    }
+});
