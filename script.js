@@ -1,7 +1,6 @@
 let display = '';
 let history = '';
 let operandA = 0;
-let operandB = 0;
 let operationCount = 0;
 let currentOperation = '';
 const historyDisplay = document.querySelector('#history');
@@ -44,7 +43,6 @@ buttonContainer.addEventListener('click', event => {
         operationCount = 0;
         currentOperation = '';
         operandA = 0;
-        operandB = 0;
         updateDisplay();
         updateHistory();
     }
@@ -53,16 +51,16 @@ buttonContainer.addEventListener('click', event => {
 buttonContainer.addEventListener('click', event => {
     const button = event.target;
     if (button.getAttribute('id') === 'equals-btn') {
-        operandB = display;
-        operate(operandA, operandB);
+        display = operate(operandA, display);
+        updateHistory();
         updateDisplay();
     }
 });
 
 
 function operate(a, b) {
-    display = currentOperation(Number(a), Number(b));
-    
+    history += ' ' + display;
+    return currentOperation(Number(a), Number(b));
 }
 
 buttonContainer.addEventListener('click', event => {
@@ -70,6 +68,8 @@ buttonContainer.addEventListener('click', event => {
     if (button.classList.contains('operator')) {
         if (operationCount < 1) {
             operandAssignment(button);
+        } else {
+
         }
     }
 });
