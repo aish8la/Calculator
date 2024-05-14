@@ -51,9 +51,12 @@ buttonContainer.addEventListener('click', event => {
 buttonContainer.addEventListener('click', event => {
     const button = event.target;
     if (button.getAttribute('id') === 'equals-btn') {
-        display = operate(operandA, display);
-        updateHistory();
-        updateDisplay();
+        if (currentOperation !== '') {
+            display = operate(operandA, display);
+            updateHistory();
+            updateDisplay();
+            currentOperation = '';
+        }
     }
 });
 
