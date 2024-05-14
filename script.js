@@ -91,3 +91,12 @@ function goToNextOperation(target) {
     updateDisplay();
     display = '';
 }
+
+
+buttonContainer.addEventListener('click', event => {
+    const button = event.target;
+    if (button.getAttribute('id') === 'clear-btn') {
+        display = display.slice(0, (display.length - 1));
+        updateDisplay();
+    }
+});
