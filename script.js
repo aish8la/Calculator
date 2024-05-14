@@ -1,8 +1,10 @@
 let display = '';
-let operandA = '';
-let operandB = '';
+let history = '';
+let operandA = 0;
+let operandB = 0;
 let operationCount = 0;
 let currentOperation = '';
+const historyDisplay = document.querySelector('#history');
 const displayBox = document.querySelector('#display');
 const operations = {
     add: (a, b) => a + b,
@@ -10,11 +12,20 @@ const operations = {
     multiply: (a, b) => a * b,
     divide: (a, b) => a / b,
 }
+const operationSign = {
+    add: '+',
+    subtract: '-',
+    multiply: '*',
+    divide: '/',
+}
 
 function updateDisplay() {
     displayBox.textContent = display;
 }
 
+function updateHistory() {
+    historyDisplay.textContent = history;
+}
 const buttonContainer = document.querySelector('.button-section');
 
 buttonContainer.addEventListener('click', event => {
@@ -29,11 +40,13 @@ buttonContainer.addEventListener('click', event => {
     const button = event.target;
     if (button.getAttribute('id') === 'allClear-btn') {
         display = '';
+        history = '';
         operationCount = 0;
         currentOperation = '';
-        operandA = '';
-        operandB = '';
+        operandA = 0;
+        operandB = 0;
         updateDisplay();
+        updateHistory();
     }
 });
 
@@ -41,25 +54,32 @@ buttonContainer.addEventListener('click', event => {
     const button = event.target;
     if (button.getAttribute('id') === 'equals-btn') {
         operandB = display;
-        operate(operandA, operandB, currentOperation);
+        operate(operandA, operandB);
         updateDisplay();
     }
 });
 
 
-function operate(a, b, callback) {
-    display = callback(a, b);
+function operate(a, b) {
+    display = currentOperation(Number(a), Number(b));
+    
 }
 
 buttonContainer.addEventListener('click', event => {
     const button = event.target;
-    if (button.classList.contains('operator') && operationCount < 1) {
-        const buttonValue = button.value;
-        currentOperation = operations[buttonValue];
-        console.log(currentOperation);
-        operationCount++;
-        operandA = display;
-        display = '';
-        updateDisplay();
+    if (button.classList.contains('operator')) {
+        if (operationCount < 1) {
+            operandAssignment(button);
+        }
     }
 });
+
+function operandAssignment(target) {
+    operandA = display;
+    currentOperation = operations[target.value];
+    history += '' + display + ' ' + operationSign[target.value];
+    operationCount++;
+    display = '';
+    updateDisplay();
+    updateHistory();
+}
