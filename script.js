@@ -1,9 +1,7 @@
 let display = '';
-let history = '';
 let operandA = 0;
 let operationCount = 0;
 let currentOperation = '';
-const historyDisplay = document.querySelector('#history');
 const displayBox = document.querySelector('#display');
 const operations = {
     add: (a, b) => a + b,
@@ -22,9 +20,6 @@ function updateDisplay() {
     displayBox.textContent = display;
 }
 
-function updateHistory() {
-    historyDisplay.textContent = history;
-}
 const buttonContainer = document.querySelector('.button-section');
 
 buttonContainer.addEventListener('click', event => {
@@ -39,12 +34,10 @@ buttonContainer.addEventListener('click', event => {
     const button = event.target;
     if (button.getAttribute('id') === 'allClear-btn') {
         display = '';
-        history = '';
         operationCount = 0;
         currentOperation = '';
         operandA = 0;
         updateDisplay();
-        updateHistory();
     }
 });
 
@@ -53,7 +46,6 @@ buttonContainer.addEventListener('click', event => {
     if (button.getAttribute('id') === 'equals-btn') {
         if (currentOperation !== '') {
             display = operate(operandA, display);
-            updateHistory();
             updateDisplay();
             display = '';
         }
@@ -62,7 +54,6 @@ buttonContainer.addEventListener('click', event => {
 
 
 function operate(a, b) {
-    history += ' ' + display;
     const calValue = currentOperation(Number(a), Number(b));
     currentOperation = '';
     operandA = calValue;
@@ -83,23 +74,18 @@ buttonContainer.addEventListener('click', event => {
 function operandAssignment(target) {
     operandA = display;
     currentOperation = operations[target.value];
-    history += '' + display + ' ' + operationSign[target.value];
     operationCount++;
     display = '';
     updateDisplay();
-    updateHistory();
 }
 
 function goToNextOperation(target) {
     if (currentOperation === '') {
         currentOperation = operations[target.value];
-        history += ' ' + operationSign[target.value] + ' ' + display;
     } else {
-        history += ' ' + display;
         display = operate(operandA, display);
         currentOperation = operations[target.value];
     }
     updateDisplay();
-    updateHistory();
     display = '';
 }
