@@ -75,8 +75,8 @@ function operandAssignment(target) {
     operandA = display;
     currentOperation = operations[target.value];
     operationCount++;
-    display = '';
     updateDisplay();
+    display = '';
 }
 
 function goToNextOperation(target) {
