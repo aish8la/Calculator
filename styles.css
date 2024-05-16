@@ -9,13 +9,33 @@
 .display-section {
     height: 70px;
     width: 480px;
-    border: 2px solid black;
+    border: 2px solid rgb(0, 0, 0);
+    background-color: #222;
+    color: #fff;
+    text-align: right;
+    font-size: 2em;
 }
 
 .button-section {
     width: 480px;
     height: 500px;
     border: 2px solid black;
+
+}
+
+.operator,
+#equals-btn {
+    background-color: #ecbe26;
+}
+
+.AC,
+.Clear {
+    background-color: rgb(34, 157, 157);
+}
+
+.number,
+#decimal-btn {
+    background-color: rgb(165, 245, 138);
 }
 
 .button-ctn {
