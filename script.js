@@ -11,6 +11,27 @@ const operations = {
         return b? a / b : 'cannot divide by zero';
     },
 }
+
+const mapKey = {
+    "Backspace": "clear-btn",
+    "/": "divide-btn",
+    "7": "seven-btn",
+    "8": "eight-btn",
+    "9": "nine-btn",
+    "*": "multiply-btn",
+    "4": "four-btn",
+    "5": "five-btn",
+    "6": "six-btn",
+    "-": "subtract-btn",
+    "1": "one-btn",
+    "2": "two-btn",
+    "3": "three-btn",
+    "+": "add-btn",
+    "0": "zero-btn",
+    ".": "decimal-btn",
+    "Enter": "equals-btn"
+}
+
 const operationSign = {
     add: '+',
     subtract: '-',
@@ -56,10 +77,14 @@ buttonContainer.addEventListener('click', event => {
 
 
 function operate(a, b) {
-    const calValue = currentOperation(Number(a), Number(b));
+    const calValue = roundToDecimals(currentOperation(Number(a), Number(b)));
     currentOperation = '';
     operandA = calValue;
     return calValue;
+}
+
+function roundToDecimals(number) {
+    return Math.round(number * 1e10) / 1e10;
 }
 
 buttonContainer.addEventListener('click', event => {
@@ -112,5 +137,9 @@ buttonContainer.addEventListener('click', event => {
 });
 
 document.addEventListener('keydown', event => {
-    console.log(event.key);
+    event.preventDefault();
+    const keyPressed = event.key;
+    if (keyPressed in mapKey) {
+        document.querySelector(`#${mapKey[keyPressed]}`).click();
+    }
 });
